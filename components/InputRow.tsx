@@ -9,7 +9,7 @@ export default function InputRow({ title, units, value, setFn }:
   return (
     <View style={styles.container}>
         <Text
-          style={styles.text}
+          style={styles.prefix}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
           {title}
@@ -18,10 +18,11 @@ export default function InputRow({ title, units, value, setFn }:
         <TextInput 
             style={styles.input} 
             value={value}
+            keyboardType='numeric'
             onChangeText={text => setFn(text)}/>
 
         <Text
-          style={styles.text}
+          style={styles.suffix}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
           {units}
@@ -34,20 +35,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'flex-start',
     backgroundColor: '#fff',
   },
   input: {
+    flex: 1,
     height: 24, 
     width: "20%",
     borderColor: 'gray', 
     borderWidth: 1
   },
-  text: {
+  suffix: {
+    flex: 1,
     fontSize: 17,
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'left',
+    paddingHorizontal: "1%"
+  },
+  prefix: {
+    flex: 1,
+    width: 100,
+    fontSize: 17,
+    lineHeight: 24,
+    textAlign: 'right',
     paddingHorizontal: "1%"
   }
 });

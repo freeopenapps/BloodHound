@@ -75,7 +75,7 @@ export default function TabOneScreen() {
   return (
     <View style={styles.main_container}>
       <View style={styles.inputs_container}>
-        <Text style={styles.title}>Inputs</Text>
+        <Text style={styles.title}>Entry</Text>
         <InputRow title='Ketones' units='mmol/L' value={ketones} setFn={setKetones}/>
         <InputRow title='Glucose' units='mg/dL' value={glucose} setFn={setGlucose}/>
         <InputRow title='Weight' units='lb' value={weight} setFn={setWeight}/>
@@ -84,10 +84,10 @@ export default function TabOneScreen() {
         <InputRow title='Bpm' units='bpm' value={bpm} setFn={setBpm}/>
       </View>
       
-      <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} />
+      {/* <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} /> */}
       
       <View style={styles.note_container}>
-        <Text style={styles.title}>Notes</Text>
+        <Text style={styles.title}>Note</Text>
         <TextInput 
           style={styles.noteText}
           multiline
@@ -96,10 +96,10 @@ export default function TabOneScreen() {
           onChangeText= {text => setNote(text)}/>
       </View>
       
-      <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} />
+      {/* <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} /> */}
       
       <View style={styles.datetime_container}>
-        <Text style={styles.title}>Date  / Time</Text>
+        <Text style={styles.title}>Date & Time</Text>
         <View style={styles.datetime_row} >
           <View style={styles.datetime_info_container}>
             <Text style={styles.info_text}>{date.getMonth()+1}/{date.getDate()}/{date.getFullYear()}</Text>
@@ -118,14 +118,14 @@ export default function TabOneScreen() {
             testID="dateTimePicker"
             value={date}
             mode={mode}
-            is24Hour={true}
+            is24Hour={false}
             display="default"
             onChange={(event: any, selection: any) => onChange(event, selection)}
           />
         )}
       </View>
 
-      <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} />
+      {/* <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} /> */}
       
       <View style={styles.createbtn_container}>
         <Button title="Create Entry" onPress={createEntry}/>
