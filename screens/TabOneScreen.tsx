@@ -27,7 +27,7 @@ export default function TabOneScreen() {
 
   const onChange = (event: any, selectedDate: boolean) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
+    setShow(false)//Platform.OS === 'ios');
     setDate(currentDate);
   };
 

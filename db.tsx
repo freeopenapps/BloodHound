@@ -87,3 +87,19 @@ export const getAll = () => {
         })
     return promise;
 }
+
+// SQLite has no DATE type and no functions for ISO date strings :(
+// export const getRange = (start: string, end: string) => {
+//     const promise = new Promise(
+//         (resolve: any, reject: any) => {
+//             db.transaction(tx => {
+//                 tx.executeSql(
+//                     'SELECT * FROM entries WHERE datetime BETWEEN ' + start + ' AND ' + end,
+//                     [],
+//                     (_, result) => resolve(result),
+//                     (_, err) => reject(err) 
+//                 )
+//             })
+//         })
+//     return promise;
+// }

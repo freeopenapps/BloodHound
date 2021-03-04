@@ -52,7 +52,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Create Log Entry' }}
+        options={{ headerTitle: 'Create Entry' }}
       />
     </TabOneStack.Navigator>
   );
