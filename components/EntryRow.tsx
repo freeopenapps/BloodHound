@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
 
-export default function Entry({entry}: {entry: any}) {
+export default function EntryRow({entry}: {entry: any}) {
   const [values, setValues] = React.useState<any>({})
   
   React.useEffect(() => {
@@ -12,7 +12,7 @@ export default function Entry({entry}: {entry: any}) {
 
   const convert_time = (datetime: string): string => {
     /**
-     * 2021-03-03T04:05:18.000Z
+     * 2021-03-03T04:05:18.000Z ---> 4:05am
      */
     let d = new Date(datetime)
 
@@ -85,12 +85,6 @@ function Value({title, value,unit}: {title: string, value: string, unit: string}
 function DateView({value}: {value: string}) {
   return(
     <View style={styles.value_container}>
-      {/* <Text
-        style={styles.date_text}
-        lightColor="rgba(0,0,0,0.8)"
-        darkColor="rgba(255,255,255,0.8)">
-        {value.split(' ')[0]}
-      </Text> */}
       <Text
         style={styles.date_text}
         lightColor="rgba(0,0,0,0.8)"
@@ -101,20 +95,23 @@ function DateView({value}: {value: string}) {
   );
 }
 
+let bgColor = '#dde'
 const styles = StyleSheet.create({
   column_container: {
     // flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'baseline',
-    backgroundColor: '#fff',
+    backgroundColor: bgColor,
+    borderColor: 'black',
+    borderWidth: 1
   },
   row_container: {
     // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: bgColor,
   },
   value_container: {
     // flex: 1,
@@ -122,13 +119,13 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: 'flex-start',
     alignItems: 'baseline',
-    backgroundColor: '#fff',
+    backgroundColor: bgColor,
     borderColor: 'black',
-    borderWidth: 1
+    borderWidth: 0.5
   },
   value_top: {
     // flex: 1,
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 24,
     textAlign: 'center'
   },

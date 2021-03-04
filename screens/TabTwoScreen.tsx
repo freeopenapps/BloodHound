@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { getAll } from '../db';
-import Entry from '../components/Entry';
+import EntryRow from '../components/EntryRow';
 import DateButtonCombo from '../components/DateButtonCombo'
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
@@ -127,7 +127,7 @@ export default function TabTwoScreen() {
             <View key={key1}>
               <Text style={styles.title}>{date}</Text>
               {dateGroups[date].map((entry:any, key2:any)=> {
-                return <Entry entry={entry} key={key2}/>
+                return <EntryRow entry={entry} key={key2}/>
               })}  
             </View>
           )
