@@ -7,8 +7,6 @@ import InputRow from '../components/InputRow';
 import { TextInput, View, Text, Button } from '../components/Themed';
 
 export default function TabOneScreen() {
-  let separatorDarkColor = "rgba(255,255,255,1)"
-  let separatorLightColor = "rgba(0,0,0,1)"
 
   const [ketones, setKetones] = React.useState<string>("")
   const [glucose, setGlucose] = React.useState<string>("")
@@ -84,8 +82,6 @@ export default function TabOneScreen() {
         <InputRow title='Bpm' units='bpm' value={bpm} setFn={setBpm}/>
       </View>
       
-      {/* <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} /> */}
-      
       <View style={styles.note_container}>
         <Text style={styles.title}>Note</Text>
         <TextInput 
@@ -95,8 +91,6 @@ export default function TabOneScreen() {
           value={note}
           onChangeText= {text => setNote(text)}/>
       </View>
-      
-      {/* <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} /> */}
       
       <View style={styles.datetime_container}>
         <Text style={styles.title}>Date & Time</Text>
@@ -125,8 +119,6 @@ export default function TabOneScreen() {
         )}
       </View>
 
-      {/* <View style={styles.separator} lightColor={separatorLightColor} darkColor={separatorDarkColor} /> */}
-      
       <View style={styles.createbtn_container}>
         <Button title="Create Entry" onPress={createEntry}/>
       </View>
@@ -190,11 +182,5 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderColor: 'gray', 
     borderWidth: 1
-  },
-  separator: {
-    marginVertical: "1%",
-    height: 1,
-    width: '85%',
-    alignSelf: "center"
-  },
+  }
 });
