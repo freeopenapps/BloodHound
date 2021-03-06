@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 
 import { create } from '../db';
 import InputEntry from '../components/InputEntry';
@@ -13,13 +13,14 @@ export default function TabOneScreen() {
   const [date, setDate] = React.useState(new Date());
 
   const createEntry = () => {
-    console.log("\nCreate Entry: ")
-    console.log(entry.getEntry())
-    console.log("\n")
+    // console.log("\nCreate Entry: ")
+    // console.log(entry.getEntry())
+    // console.log("\n")
 
     create(entry).then(() => {
       setEntry(Entry.createEmpty());
       setDate(new Date());
+      createAlert();
     })
   }
 
@@ -30,6 +31,12 @@ export default function TabOneScreen() {
     e_temp.setDateTime(date);
     setEntry(e_temp)
   }, [date])
+
+  const createAlert = () =>
+    Alert.alert(
+      "Success",
+      "Entry Created"
+    );
 
   return (
     <View style={styles.main_container}>
