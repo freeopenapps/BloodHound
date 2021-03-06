@@ -15,10 +15,10 @@ export default function DTPicker(
     const determineAMPM = (value: number) => {
       if(value >= 12){
         // setAmpm('pm')
-        return value - 12
+        return (value - 12).toString().padStart(2,"0")
       }
       // setAmpm('am')
-      return value
+      return value.toString().padStart(2,"0")
     }
 
     const onChange = (event: any, selectedDate: Date) => {
@@ -38,7 +38,8 @@ export default function DTPicker(
           </Text> : 
           <Text style={styles.text}>
             {determineAMPM(date.getHours())}:
-            {date.getMinutes()}{ampm}
+            {date.getMinutes().toString().padStart(2,"0")}
+            {date.getHours() > 11 ? 'pm':'am'}
           </Text>
         }
         <Button onPress={showPicker} title={title} />
