@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
+import { LogEntry } from "../types";
 import { getAll } from '../db';
 import DisplayEntry from '../components/DisplayEntry';
-import DTPicker from '../components/DTPicker';
+import DisplayRange from '../components/DisplayRange';
+import { groupByDate } from '../utils/DateUtils';
+
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function TabTwoScreen() {
   const [dateGroups, setDateGroups] = React.useState<any>({})
-  const [entries, setEntries] = React.useState([])
+  const [entries, setEntries] = React.useState<LogEntry[]>([])
 
-  const [startDate, setStartDate] = React.useState<any>(new Date(Date()));
-  const [endDate, setEndDate] = React.useState<any>(new Date(Date()));
+  const [startDate, setStartDate] = React.useState<any>(new Date());
+  const [endDate, setEndDate] = React.useState<any>(new Date());
   const isFocused = useIsFocused();
 
   const genDevEntries = () => {
@@ -28,20 +31,20 @@ export default function TabTwoScreen() {
           'diastolic': '60',
           'bpm': '2',
           'note': 'A note has been made! What now?',
-          'datetime': '2021-03-03T04:05:18.000Z'
+          'datetime': '2021-03-03 04:05:18.000Z'
         }
       )
     }
     return entries
   }
 
-  
-
-  const get_date_groups = () => {}
+  const get_date_groups = () => {
+    setDateGroups(groupByDate(entries, startDate, endDate))
+  }
     
 
   const defaultRange = () => {
-    // Set range to today and 7 days ago
+    // Set range to start 7 days ago and end today
     let d = new Date(Date())
     d.setDate( startDate.getDate() - 7 )
     setStartDate(d)
@@ -63,9 +66,9 @@ export default function TabTwoScreen() {
 
   React.useEffect(() => {
     defaultRange()
-    getEntries()
+    // getEntries()
     //@ts-ignore
-    // setEntries(genDevEntries());
+    setEntries(genDevEntries());
   }, [])
 
   React.useEffect(() => {
@@ -78,30 +81,18 @@ export default function TabTwoScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-
       <ScrollView style={styles.scrollView}>
-        <View style={styles.date_row}>
-          <Text style={styles.range_title}>Date Range</Text>
-          {/* <DateButtonCombo 
-            title='Start Date'
-            mode='date'
-            date={startDate}
-            setDate={setStartDate}
-          />
-          <DateButtonCombo 
-            title='End Date'
-            mode='date'
-            date={endDate}
-            setDate={setEndDate}
-          /> */}
-        </View>
+          <DisplayRange 
+            start={startDate}
+            setStart={setStartDate}
+            end={endDate}
+            setEnd={setEndDate}/>
         {Object.keys(dateGroups).sort().reverse().map((date, key1) => {
           return (
             <View key={key1}>
               <Text style={styles.title}>{date}</Text>
               {dateGroups[date].map((entry:any, key2:any)=> {
-                return <DisplayEntry 
-                          entry={entry} key={key2}/>
+                return <DisplayEntry entry={entry} key={key2}/>
               })}  
             </View>
           )

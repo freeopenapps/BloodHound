@@ -13,9 +13,9 @@ export default function TabOneScreen() {
   const [date, setDate] = React.useState(new Date());
 
   const createEntry = () => {
-    // console.log("\nCreate Entry: ")
-    // console.log(entry.getEntry())
-    // console.log("\n")
+    console.log("\nCreate Entry: ")
+    console.log(entry.getEntry())
+    console.log("\n")
 
     create(entry).then(() => {
       setEntry(Entry.createEmpty());

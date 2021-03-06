@@ -6,7 +6,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
-import {init_db} from './db';
+import {init_db, clear_db} from './db';
 
 init_db()
   .then(() => {
@@ -16,6 +16,15 @@ init_db()
     console.log('Error initializing db.')
     console.log(err)
   })
+
+// clear_db()
+//   .then(() => {
+//     console.log('Cleared db')
+//   })
+//   .catch((err: any) => {
+//     console.log('Error clearing db.')
+//     console.log(err)
+//   })
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

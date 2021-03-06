@@ -8,16 +8,12 @@ export default function DTPicker(
     {title: string, mode: any, date: Date, setDate: any}) {
     
     const [show, setShow]         = React.useState(false)
-    const [ampm, setAmpm]         = React.useState('')
-
     const showPicker = () => { setShow(true); };
 
     const determineAMPM = (value: number) => {
       if(value >= 12){
-        // setAmpm('pm')
         return (value - 12).toString().padStart(2,"0")
       }
-      // setAmpm('am')
       return value.toString().padStart(2,"0")
     }
 

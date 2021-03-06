@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
 
-export default function DisplayTime({value}: {value: string}) {
-  return(
+export default function DisplayNote ({value}:{value: string}) {
+  return (      
     <View style={styles.container}>
       <Text
         style={styles.text}
@@ -11,30 +11,22 @@ export default function DisplayTime({value}: {value: string}) {
         darkColor="rgba(255,255,255,0.8)">
         {value}
       </Text>
-  </View>
-  );
+    </View>);
 }
 
 let bgColor = '#dde'
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    flexDirection: 'column',
-    padding: 5,
-    justifyContent: 'flex-start',
-    alignItems: 'baseline',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
     backgroundColor: bgColor,
-    borderColor: 'black',
-    borderWidth: 0.5
   },
   text: {
-    flex: 1,
+    // flex: 1,
     fontSize: 16,
-    lineHeight: 16,
+    lineHeight: 24,
     textAlign: 'center',
-    alignContent: 'center',
-    alignItems:'center',
-    padding: '2%',
-    marginTop: '25%'
   }
 });
