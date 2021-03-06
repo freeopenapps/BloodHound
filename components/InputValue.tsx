@@ -3,9 +3,29 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Text, View, TextInput } from './Themed';
+import Entry from '../objects/Entry';
 
-export default function InputRow({ title, units, value, setFn }: 
-    { title: string, units: string, value: string, setFn: any  }) {
+export default function InputValue({ title,attribute, units, entry, setEntry }: 
+    { title: string, attribute: string, units: string, entry: Entry, setEntry: any  }) {
+  /**
+   * Will the Entry object be passed in by copy or by reference?
+   */
+  
+  const [value, setValue] = React.useState('');
+
+  const onChange = (val: string) => {
+    setValue(val)
+    // Create temp with props entry values
+    let e_temp: Entry = new Entry(entry.getEntry());
+
+    // Update specific attribute
+    //@ts-ignore
+    e_temp[attribute] = val;
+
+    // replace old Entry with e_temp
+    setEntry(e_temp)
+  }
+
   return (
     <View style={styles.container}>
         <Text
@@ -19,7 +39,7 @@ export default function InputRow({ title, units, value, setFn }:
             style={styles.input} 
             value={value}
             keyboardType='numeric'
-            onChangeText={text => setFn(text)}/>
+            onChangeText={text => onChange(text)}/>
 
         <Text
           style={styles.suffix}

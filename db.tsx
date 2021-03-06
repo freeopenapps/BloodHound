@@ -31,15 +31,24 @@ export const init_db = () => {
                     () => resolve(),
                     (_, err) => reject(err) 
                 )
-                // tx.executeSql(
-                //     'DROP TABLE entries',
-                //     [],
-                //     () => resolve(),
-                //     (_, err) => reject(err) 
-                // )
             })
         })
     return promise;
+}
+
+export const clear_db = () => {
+  const promise = new Promise(
+      (resolve: any, reject: any) => {
+          db.transaction(tx => {
+              tx.executeSql(
+                  'DROP TABLE entries',
+                  [],
+                  () => resolve(),
+                  (_, err) => reject(err) 
+              )
+          })
+      })
+  return promise;
 }
 
 export const create = (entry: LogEntry) => {

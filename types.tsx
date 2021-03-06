@@ -15,3 +15,14 @@ export type TabOneParamList = {
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
+
+export type LogEntry = {
+  ketones: string;
+  glucose: string;
+  weight: string;
+  systolic: string;
+  diastolic: string;
+  bpm: string;
+  note: string;
+  datetime: string;
+}

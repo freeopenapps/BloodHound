@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
 
-export default function EntryRow({entry}: {entry: any}) {
+export default function EntryEntry({entry}: {entry: any}) {
   const [values, setValues] = React.useState<any>({})
   
   React.useEffect(() => {
