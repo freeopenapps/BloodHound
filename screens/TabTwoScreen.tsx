@@ -72,11 +72,7 @@ export default function TabTwoScreen() {
 
   React.useEffect(() => {
     get_date_groups()
-  }, [entries])
-
-  React.useEffect(() => {
-    get_date_groups()
-  }, [startDate, endDate])
+  }, [entries, startDate, endDate])
 
   return (
     <SafeAreaView style={styles.container}>

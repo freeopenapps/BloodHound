@@ -14,7 +14,7 @@ export default function DisplayNote ({value}:{value: string}) {
     </View>);
 }
 
-let bgColor = '#dde'
+let bgColor = '#eee'
 const styles = StyleSheet.create({
   container: {
     // flex: 1,

@@ -17,7 +17,7 @@ export default function DisplayEntry({entry}: {entry: Entry}) {
 
   return (
     <View style={styles.column_container}>
-      <View style={styles.row_container}>
+      <View style={styles.value_row}>
         <DisplayTime value={convert_time(entry['datetime'])} />
         <DisplayValue title='Ketones' value={entry['ketones']} unit="mmol/L"/>
         <DisplayValue title='Glucose' value={entry['glucose']} unit="mg/dL" />
@@ -26,29 +26,36 @@ export default function DisplayEntry({entry}: {entry: Entry}) {
           value={convert_pressure(entry['systolic'],entry['diastolic'],entry['bpm'])} 
           unit="sys/dia/bpm" />
       </View>
-      <View style={styles.row_container}>
+      <View style={styles.note_row}>
         <DisplayNote value={entry['note']} />
       </View>
     </View>
   );
 }
 
-let bgColor = '#dde'
+let bgColor = '#eee'
 const styles = StyleSheet.create({
   column_container: {
     // flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'baseline',
+    // justifyContent: 'flex-start',
+    // alignItems: 'baseline',
     backgroundColor: bgColor,
     borderColor: 'black',
-    borderWidth: 1
+    borderWidth: 1,
   },
-  row_container: {
+  value_row: {
     // flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    backgroundColor: bgColor,
+    width: '98%',
+  },
+  note_row: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'flex-start',
     backgroundColor: bgColor,
   }
 });

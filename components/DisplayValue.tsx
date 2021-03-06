@@ -27,17 +27,15 @@ export default function DisplayValue({title, value, unit}: {title: string, value
   );
 }
 
-let bgColor = '#dde'
+let bgColor = '#ddd'
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     flexDirection: 'column',
-    padding: 5,
-    justifyContent: 'flex-start',
-    alignItems: 'baseline',
+    alignItems: 'stretch',
     backgroundColor: bgColor,
     borderColor: 'black',
-    borderWidth: 0.5
+    borderWidth: 0.5,
   },
   value_top: {
     // flex: 1,
@@ -47,8 +45,8 @@ const styles = StyleSheet.create({
   },
   value_mid: {
     // flex: 1,
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 14,
+    lineHeight: 20,
     textAlign: 'center'
   },
   value_bottom: {

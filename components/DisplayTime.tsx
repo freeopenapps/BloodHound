@@ -15,7 +15,7 @@ export default function DisplayTime({value}: {value: string}) {
   );
 }
 
-let bgColor = '#dde'
+let bgColor = '#ddd'
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     fontSize: 16,
-    lineHeight: 16,
-    textAlign: 'center',
-    alignContent: 'center',
-    alignItems:'center',
-    padding: '2%',
-    marginTop: '25%'
+    // lineHeight: 16,
+    // textAlign: 'center',
+    // alignContent: 'center',
+    // alignItems:'center',
+    // padding: '2%',
+    marginTop: '35%'
   }
 });
