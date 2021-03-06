@@ -4,31 +4,13 @@ import { StyleSheet } from 'react-native';
 import { View } from './Themed';
 
 import DisplayValue from './DisplayValue';
-import DisplayDate from './DisplayDate';
+import DisplayTime from './DisplayTime';
 import DisplayNote from './DisplayNote';
 import Entry from '../objects/Entry';
+import {convert_time} from '../utils/DateUtils';
 
 export default function DisplayEntry({entry}: {entry: Entry}) {
-  const convert_time = (datetime: string): string => {
-    /**
-     * 2021-03-03 04:05:18.000Z ---> 4:05am
-     */
-    let d = new Date(datetime)
-
-    // Setup date
-    let month = d.getMonth() + 1
-    let m = month.toString()
-    let date = m + '/' + d.getDate() + '/' + d.getFullYear()
-
-    // Setup time
-    let hours = d.getHours() > 12 ? d.getHours() - 12 : d.getHours();
-    //@ts-ignore
-    let minutes = d.getMinutes().toString().padStart(2,0);
-    let suffix = d.getHours() > 11 ? "pm" : "am";
-
-    return date + ' ' + hours + ':' + minutes + suffix;
-  }
-
+  
   const convert_pressure = (sys: string, dia: string, bpm: string): string => {
     return sys + '/' + dia + '/' + bpm;
   }
@@ -36,7 +18,7 @@ export default function DisplayEntry({entry}: {entry: Entry}) {
   return (
     <View style={styles.column_container}>
       <View style={styles.row_container}>
-        <DisplayDate value={convert_time(entry['datetime'])} />
+        <DisplayTime value={convert_time(entry['datetime'])} />
         <DisplayValue title='Ketones' value={entry['ketones']} unit="mmol/L"/>
         <DisplayValue title='Glucose' value={entry['glucose']} unit="mg/dL" />
         <DisplayValue title='Weight' value={entry['weight']} unit="lb" />

@@ -1,5 +1,5 @@
 import { LogEntry } from '../types';
-import {groupByDate, compare_dates} from './DateUtils';
+import {groupByDate, compare_dates, convert_time} from './DateUtils';
 
 describe('DateUtils', () => {
 
@@ -80,5 +80,15 @@ describe('DateUtils', () => {
     expect(compare_dates(new Date(entries[3].datetime),
                           end)).toBe('less');
   });
+
+  test('convert_time', () => {
+    let am = '2021-03-06 04:05:18.000'
+    let pm = '2021-03-06 15:05:18.000'
+    let expect_am = '4:05am'
+    let expect_pm = '3:05pm'
+
+    expect(convert_time(am)).toBe(expect_am)
+    expect(convert_time(pm)).toBe(expect_pm)
+  })
 })
 

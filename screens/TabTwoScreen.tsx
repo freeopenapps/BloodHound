@@ -31,7 +31,7 @@ export default function TabTwoScreen() {
           'diastolic': '60',
           'bpm': '2',
           'note': 'A note has been made! What now?',
-          'datetime': '2021-03-03 04:05:18.000Z'
+          'datetime': '2021-03-03 04:05:18.000'
         }
       )
     }
@@ -42,7 +42,6 @@ export default function TabTwoScreen() {
     setDateGroups(groupByDate(entries, startDate, endDate))
   }
     
-
   const defaultRange = () => {
     // Set range to start 7 days ago and end today
     let d = new Date(Date())
@@ -55,7 +54,7 @@ export default function TabTwoScreen() {
       .then((res: any) => { 
         setEntries(res['rows']['_array'])
         // console.log(entries)
-        console.log('Got all entries!')
+        // console.log('Got all entries!')
         })
       .catch((err) => { console.log(err)})
   }
@@ -66,9 +65,9 @@ export default function TabTwoScreen() {
 
   React.useEffect(() => {
     defaultRange()
-    // getEntries()
+    getEntries()
     //@ts-ignore
-    setEntries(genDevEntries());
+    // setEntries(genDevEntries());
   }, [])
 
   React.useEffect(() => {

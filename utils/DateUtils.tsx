@@ -8,7 +8,7 @@ export const groupByDate =
   for(const index in entries)
   {
     //@ts-ignore
-    let d = new Date(entries[index].datetime)
+    let d = new Date(entries[index].datetime.replace(' ', 'T'))
     // console.log('-')
     // console.log(d)
     // console.log(startDate)
@@ -60,4 +60,21 @@ export const compare_dates = (d1: Date, d2: Date): string => {
   if(d1.getDay() > d2.getDay()) return 'greater'
 
   return 'equal';
+}
+
+export const convert_time = (datetime: string): string => {
+  /**
+   * 2021-03-03 13:05:18.000 ---> 1:05pm
+   */
+  let d = new Date(datetime.replace(' ', 'T'))
+  // console.log(d)
+  // console.log(datetime)
+
+  // Setup time
+  let hours = d.getHours() > 11 ? d.getHours() - 12 : d.getHours();
+  //@ts-ignore
+  let minutes = d.getMinutes().toString().padStart(2,0);
+  let suffix = d.getHours() > 11 ? "pm" : "am";
+
+  return hours + ':' + minutes + suffix;
 }
