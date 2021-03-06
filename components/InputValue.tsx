@@ -10,20 +10,19 @@ export default function InputValue({ title,attribute, units, entry, setEntry }:
   /**
    * Will the Entry object be passed in by copy or by reference?
    */
-  
-  const [value, setValue] = React.useState('');
 
   const onChange = (val: string) => {
-    setValue(val)
-    // Create temp with props entry values
-    let e_temp: Entry = new Entry(entry.getEntry());
-
-    // Update specific attribute
+    // Update entry with new alue for attribute
+    let e_temp: Entry = Entry.createEmpty();
+    e_temp.update(entry.getEntry());
     //@ts-ignore
     e_temp[attribute] = val;
-
-    // replace old Entry with e_temp
     setEntry(e_temp)
+    
+    // console.log("\n\nInputValue: " + attribute)
+    // console.log(entry)
+    // console.log(e_temp)
+    // console.log("InputValue\n\n")
   }
 
   return (
@@ -37,7 +36,8 @@ export default function InputValue({ title,attribute, units, entry, setEntry }:
 
         <TextInput 
             style={styles.input} 
-            value={value}
+            //@ts-ignore
+            value={entry[attribute]}
             keyboardType='numeric'
             onChangeText={text => onChange(text)}/>
 

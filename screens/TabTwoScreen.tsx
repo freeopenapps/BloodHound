@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { getAll } from '../db';
-import EntryRow from '../components/EntryRow';
-import DateButtonCombo from '../components/DateButtonCombo'
+import DisplayEntry from '../components/DisplayEntry';
+import DTPicker from '../components/DTPicker';
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -37,7 +37,7 @@ export default function TabTwoScreen() {
 
   
 
-  const get_date_groups = () => {
+  const get_date_groups = () => {}
     
 
   const defaultRange = () => {
@@ -82,7 +82,7 @@ export default function TabTwoScreen() {
       <ScrollView style={styles.scrollView}>
         <View style={styles.date_row}>
           <Text style={styles.range_title}>Date Range</Text>
-          <DateButtonCombo 
+          {/* <DateButtonCombo 
             title='Start Date'
             mode='date'
             date={startDate}
@@ -93,14 +93,15 @@ export default function TabTwoScreen() {
             mode='date'
             date={endDate}
             setDate={setEndDate}
-          />
+          /> */}
         </View>
         {Object.keys(dateGroups).sort().reverse().map((date, key1) => {
           return (
             <View key={key1}>
               <Text style={styles.title}>{date}</Text>
               {dateGroups[date].map((entry:any, key2:any)=> {
-                return <EntryRow entry={entry} key={key2}/>
+                return <DisplayEntry 
+                          entry={entry} key={key2}/>
               })}  
             </View>
           )

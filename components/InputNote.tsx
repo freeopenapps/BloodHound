@@ -5,19 +5,20 @@ import { StyleSheet } from 'react-native';
 import Entry from '../objects/Entry';
 
 export default function InputNote({entry, setEntry}: {entry:Entry, setEntry: any}){
-  const [value, setValue] = React.useState('');
 
   const onChange = (val: string) => {
-    setValue(val)
     // Create temp with props entry values
-    let e_temp: Entry = new Entry(entry.getEntry());
+    let e_temp: Entry = Entry.createEmpty();
+    e_temp.update(entry.getEntry());
 
-    // Update note attribute
-    e_temp.note = val;
+    // Update specific attribute
+    //@ts-ignore
+    e_temp['note'] = val;
 
     // replace old Entry with e_temp
     setEntry(e_temp)
   }
+
   return(      
     <View style={styles.container}>
       <Text style={styles.title}>Note</Text>
@@ -25,14 +26,14 @@ export default function InputNote({entry, setEntry}: {entry:Entry, setEntry: any
         style={styles.text}
         multiline
         numberOfLines={4}
-        value={value}
+        value={entry['note']}
         onChangeText= {text => onChange(text)}/>
     </View>)
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.5,
+    flex: 2,
     paddingTop: "2%",
     paddingBottom: "4%"
   },
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   text: {
-    height: "80%", 
+    height: "100%", 
     width: "80%",
     alignSelf: "center",
     borderColor: 'gray', 

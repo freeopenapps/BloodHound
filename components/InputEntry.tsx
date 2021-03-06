@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 
 import InputValue from './InputValue';
 import InputNote from './InputNote';
-import DTPicker from './DTPicker';
+
 
 export default function InputEntry({entry, setEntry}: {entry: any, setEntry: any}){
   return(      
@@ -48,29 +48,13 @@ export default function InputEntry({entry, setEntry}: {entry: any, setEntry: any
         setEntry={setEntry}/>
 
       <InputNote entry={entry} setEntry={setEntry} />
-      
-      <View style={styles.datetime_row}>
-        <DTPicker 
-          title='Set Date'
-          mode='date'
-          entry={entry} 
-          setEntry={setEntry}
-        />
-        <DTPicker
-          title='Set Time'
-          mode='time'
-          entry={entry} 
-          setEntry={setEntry}
-        />
-      </View>
     </View>
-    
     )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.5,
+    flex: 2,
     paddingTop: "2%",
     paddingBottom: "4%"
   },
@@ -79,9 +63,5 @@ const styles = StyleSheet.create({
     paddingLeft: "10%",
     fontWeight: 'bold',
   },
-  datetime_row: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: "1%"
-  },
+
 });
