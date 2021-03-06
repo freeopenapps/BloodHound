@@ -1,29 +1,37 @@
-import { LogEntry } from "../types";
 import Entry from '../objects/Entry';
 
 export const groupByDate = 
-  (entries: LogEntry[], start: Date, end: Date): {} => {
+  (entries: Entry[], start: Date, end: Date): {} => {
   let temp: any = {}
+
+  start.setUTCHours(0)
+  start.setUTCMinutes(0)
+  start.setUTCSeconds(0)
+
+  end.setUTCHours(23)
+  end.setUTCMinutes(59)
+  end.setUTCSeconds(59)
 
   for(const index in entries)
   {
     //@ts-ignore
-    let d = new Date(entries[index].datetime.replace(' ', 'T'))
-    // console.log('-')
-    // console.log(d)
-    // console.log(startDate)
-    // console.log(endDate)
+    let entryDate: Date = entries[index].getDateTime()
+
+    let s = 'Entry:\t' + entryDate.toISOString()  + '\n'
+    s = s + 'Start:\t' + start.toISOString()   + '\n'
+    s = s + 'End:\t' + end.toISOString()   + '\n'
+    console.log(s)
 
     // Ensure entry within range
-    if(compare_dates(d, start) === 'greater' ||
-      compare_dates(d, start) === 'equal' 
-      && 
-      compare_dates(d, end) === 'less' ||
-      compare_dates(d, end) === 'equal')
+    if((entryDate > start || entryDate === start) &&
+        (entryDate < end || entryDate === end) )
     {
-      let month = d.getMonth() + 1
-      let m = month.toString()
-      let date = m + '/' + d.getDate() + '/' + d.getFullYear()
+      let m = (entryDate.getUTCDate()).toString()
+      let date =  m + 
+                  '/' + 
+                  entryDate.getUTCDay() + 
+                  '/' + 
+                  entryDate.getUTCFullYear()
 
       // Add to exsitinng date list
       if(date in temp)
@@ -46,26 +54,6 @@ export const groupByDate =
   }
 
   return temp;
-}
-
-export const compare_dates = (d1: Date, d2: Date): string => {
-  /**
-   * Compare d1 to d2
-   */
-
-  // Check year
-  if(d1.getFullYear() < d2.getFullYear()) return 'less'
-  if(d1.getFullYear() > d2.getFullYear()) return 'greater'
-
-  // Check Month
-  if(d1.getMonth() < d2.getMonth()) return 'less'
-  if(d1.getMonth() > d2.getMonth()) return 'greater'
-
-  // Check day
-  if(d1.getDay() < d2.getDay()) return 'less'
-  if(d1.getDay() > d2.getDay()) return 'greater'
-
-  return 'equal';
 }
 
 export const convert_time = (datetime: string): string => {

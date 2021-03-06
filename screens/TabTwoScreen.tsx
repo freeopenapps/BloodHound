@@ -9,34 +9,35 @@ import { groupByDate } from '../utils/DateUtils';
 
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import Entry from '../objects/Entry';
 
 export default function TabTwoScreen() {
   const [dateGroups, setDateGroups] = React.useState<any>({})
-  const [entries, setEntries] = React.useState<LogEntry[]>([])
+  const [entries, setEntries] = React.useState<Entry[]>([])
 
   const [startDate, setStartDate] = React.useState<any>(new Date());
   const [endDate, setEndDate] = React.useState<any>(new Date());
   const isFocused = useIsFocused();
 
-  const genDevEntries = () => {
-    let entries = []
-    for(let i=0; i<10;i++)
-    {
-      entries.push(
-        {
-          'ketones': '1',
-          'glucose': '120',
-          'weight': '123',
-          'systolic': '130',
-          'diastolic': '60',
-          'bpm': '2',
-          'note': 'A note has been made! What now?',
-          'datetime': '2021-03-03 04:05:18.000'
-        }
-      )
-    }
-    return entries
-  }
+  // const genDevEntries = () => {
+  //   let entries = []
+  //   for(let i=0; i<10;i++)
+  //   {
+  //     entries.push(
+  //       {
+  //         'ketones': '1',
+  //         'glucose': '120',
+  //         'weight': '123',
+  //         'systolic': '130',
+  //         'diastolic': '60',
+  //         'bpm': '2',
+  //         'note': 'A note has been made! What now?',
+  //         'datetime': '2021-03-03 04:05:18.000'
+  //       }
+  //     )
+  //   }
+  //   return entries
+  // }
 
   const get_date_groups = () => {
     setDateGroups(groupByDate(entries, startDate, endDate))
@@ -52,7 +53,12 @@ export default function TabTwoScreen() {
   const getEntries = () => {
     getAll()
       .then((res: any) => { 
-        setEntries(res['rows']['_array'])
+        let temp: Entry[] = []
+        res['rows']['_array'].map((e: LogEntry) => {
+          temp.push(new Entry(e))
+        })
+          
+        setEntries(temp)
         // console.log(entries)
         // console.log('Got all entries!')
         })

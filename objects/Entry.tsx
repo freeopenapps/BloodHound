@@ -1,4 +1,7 @@
+import {DateTime} from 'luxon';
+
 import {LogEntry} from '../types'
+
 
 export default class Entry {
   ketones: string;
@@ -10,7 +13,6 @@ export default class Entry {
   note: string;
   datetime: string;
 
-  // Takes a LogEntry
   constructor(entry: LogEntry){
     this.ketones    = entry.ketones;
     this.glucose    = entry.glucose;
@@ -39,13 +41,33 @@ export default class Entry {
   }
 
   setDateTime = (date: Date) => {
+    /**
+     * Dates are ISO UTC strings with T and Z removed
+     * for SQLite date function compatibility.
+     */
     this.datetime = this.convertDate(date.toISOString());
   }
 
+  getDateTime = (): Date => {
+    return new Date(this.datetime.replace(' ','T') + 'Z')
+  }
+
   convertDate = (date: string): string => {
+    // Remove T in middle
     let [d, t] = date.split('T')
+    // Remove Z at end
     t = t.slice(0,-1)
     return d + ' ' + t;
+  }
+
+  getDate = (): string => {
+    // 2021-03-06
+    return this.datetime.split(' ')[0]
+  }
+
+  getTime = (): string => {
+    // 04:05:18.000
+    return this.datetime.split(' ')[1]
   }
 
   getEntry = (): LogEntry => {
