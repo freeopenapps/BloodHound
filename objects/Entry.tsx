@@ -73,11 +73,10 @@ export default class Entry {
   }
 
   compare = (other: Entry) => {
-    /**
-     * Return 
+    /** 
      * this later than other? return -1 (Leave alone)
-     * this 
-     * Greater than 0 if this.Entry.datetime earlier than other.datetime
+     * this earlier than other? return 1 (Swap them)
+     * else return 0 (Not 100% sure what this does)
      */
 
     let thisDate = new Date(this.datetime.replace(' ', 'T'));
