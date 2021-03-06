@@ -38,7 +38,13 @@ export const groupByDate =
       }
     }
   }
-  //@ts-ignore
+
+  for(const key in temp){
+    // console.log(temp[key])
+    temp[key]=temp[key].sort((a:Entry, b:Entry)=>{ return a.compare(b); })
+    // console.log(temp[key])
+  }
+
   return temp;
 }
 

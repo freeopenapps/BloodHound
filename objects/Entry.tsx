@@ -71,4 +71,23 @@ export default class Entry {
     this.note       = entry.note;
     this.datetime   = entry.datetime;
   }
+
+  compare = (other: Entry) => {
+    /**
+     * Return 
+     * this later than other? return -1 (Leave alone)
+     * this 
+     * Greater than 0 if this.Entry.datetime earlier than other.datetime
+     */
+
+    let thisDate = new Date(this.datetime.replace(' ', 'T'));
+    let otherDate = new Date(other.datetime.replace(' ', 'T'));
+
+    // console.log('\nComparing...')
+    // console.log(thisDate)
+    // console.log(otherDate)
+    // console.log(thisDate >= otherDate)
+
+    return thisDate > otherDate ? -1 : thisDate < otherDate ? 1 : 0;
+  }
 }
