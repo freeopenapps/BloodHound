@@ -17,21 +17,25 @@ export const groupByDate =
     //@ts-ignore
     let entryDate: Date = entries[index].getDateTime()
 
-    let s = 'Entry:\t' + entryDate.toISOString()  + '\n'
-    s = s + 'Start:\t' + start.toISOString()   + '\n'
-    s = s + 'End:\t' + end.toISOString()   + '\n'
-    console.log(s)
+    // let s = 'Entry:\t' + entryDate.toISOString()  + '\n'
+    // s = s + 'Start:\t' + start.toISOString()   + '\n'
+    // s = s + 'End:\t' + end.toISOString()   + '\n'
+    // console.log(s)
+
+    // s = 'Entry:\t' + entryDate.toUTCString()  + '\n'
+    // s = s + 'Start:\t' + start.toUTCString()   + '\n'
+    // s = s + 'End:\t' + end.toUTCString()   + '\n'
+    // console.log(s)
 
     // Ensure entry within range
     if((entryDate > start || entryDate === start) &&
         (entryDate < end || entryDate === end) )
     {
-      let m = (entryDate.getUTCDate()).toString()
-      let date =  m + 
+      let date =  (entryDate.getMonth() + 1) + 
                   '/' + 
-                  entryDate.getUTCDay() + 
+                  entryDate.getDate() + 
                   '/' + 
-                  entryDate.getUTCFullYear()
+                  entryDate.getFullYear()
 
       // Add to exsitinng date list
       if(date in temp)
@@ -58,16 +62,12 @@ export const groupByDate =
 
 export const convert_time = (datetime: string): string => {
   /**
-   * 2021-03-03 13:05:18.000 ---> 1:05pm
+   * 2021-03-06 13:05:18.000 ---> 1:05pm
    */
-  let d = new Date(datetime.replace(' ', 'T'))
-  // console.log(d)
-  // console.log(datetime)
-
-  // Setup time
-  let hours = d.getHours() > 11 ? d.getHours() - 12 : d.getHours();
-  //@ts-ignore
-  let minutes = d.getMinutes().toString().padStart(2,0);
+  let d = new Date(datetime.replace(' ', 'T') + 'Z')
+  // Get info in system local time
+  let hours = d.getHours() > 12 ? d.getHours() - 12 : d.getHours();
+  let minutes = d.getMinutes().toString().padStart(2,"0");
   let suffix = d.getHours() > 11 ? "pm" : "am";
 
   return hours + ':' + minutes + suffix;

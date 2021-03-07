@@ -36,16 +36,12 @@ export default function DisplayEntry({entry}: {entry: Entry}) {
 let bgColor = '#eee'
 const styles = StyleSheet.create({
   column_container: {
-    // flex: 1,
     flexDirection: 'column',
-    // justifyContent: 'flex-start',
-    // alignItems: 'baseline',
     backgroundColor: bgColor,
     borderColor: 'black',
     borderWidth: 1,
   },
   value_row: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignSelf: 'center',

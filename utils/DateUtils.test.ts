@@ -1,25 +1,23 @@
 import { LogEntry } from '../types';
-import {groupByDate, compare_dates, convert_time} from './DateUtils';
+import {groupByDate, convert_time} from './DateUtils';
 import Entry from '../objects/Entry';
 
-describe('DateUtils', () => {
+let entryLogs: LogEntry[];
+let entryObjs: Entry[];
 
-  let entryLogs: LogEntry[];
-  let entryObjs: Entry[];
-
-  beforeEach(() => {
-    let entryLog: LogEntry =
-      {
-        'ketones': '1',
-        'glucose': '120',
-        'weight': '123',
-        'systolic': '130',
-        'diastolic': '60',
-        'bpm': '2',
-        'note': 'Below range',
-        'datetime': '2019-03-03T04:05:18.000Z'
-      }
-    
+beforeEach(() => {
+  let entryLog: LogEntry =
+    {
+      'ketones': '1',
+      'glucose': '120',
+      'weight': '123',
+      'systolic': '130',
+      'diastolic': '60',
+      'bpm': '2',
+      'note': 'Below range',
+      'datetime': '2019-03-03T04:05:18.000Z'
+    }
+  
     entryLogs = []
     entryLog.datetime = '2019-03-03 04:05:18.000';    
     entryLogs.push(JSON.parse(JSON.stringify(entryLog)))
@@ -31,22 +29,21 @@ describe('DateUtils', () => {
     entryLogs.push(JSON.parse(JSON.stringify(entryLog)))
     entryLog.datetime = '2021-03-06 00:00:18.000';    
     entryLogs.push(JSON.parse(JSON.stringify(entryLog)))
-    entryLog.datetime = '2021-03-06 23:59:59.000';    
+    entryLog.datetime = '2021-03-06 23:58:59.000';    
     entryLogs.push(JSON.parse(JSON.stringify(entryLog)))
     
     entryObjs = [];
     entryLogs.map((e: LogEntry) => {
       entryObjs.push(new Entry(e))
-  })
-
+    })
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks()
-    jest.resetAllMocks()
-  })
+afterEach(() => {
+  jest.restoreAllMocks()
+  jest.resetAllMocks()
+})
 
-  test('convert_time', () => {
+test('convert_time', () => {
     let am = '2021-03-06 04:05:18.000'
     let pm = '2021-03-06 15:05:18.000'
     let expect_am = '4:05am'
@@ -56,8 +53,8 @@ describe('DateUtils', () => {
     expect(convert_time(pm)).toBe(expect_pm)
   })
 
-  test('groupByDate', () => {
-    //----- Test 1
+describe('groupByDate', () => {
+  test('handle midnight times correctly', () => {
     let start = new Date('2021-03-06T23:59:18.000Z')
     let end = new Date('2021-03-06T00:00:18.000Z')
 
@@ -66,18 +63,23 @@ describe('DateUtils', () => {
 
     expect(results).toHaveProperty('3/6/2021')
     expect(Object.keys(results)).toHaveLength(1);
-    expect(results['3/6/2021'][0].getEntry()).toEqual(entryLogs[3])
+    expect(results['3/6/2021']).toHaveLength(3)
+  })
 
-    //----- Test 2
-    start = new Date('2021-03-06T04:05:18.000Z')
-    end = new Date('2021-03-06T04:05:18.000Z')
+  test('handle range correctly', () => {
+    let start = new Date('2019-03-02T23:59:18.000Z')
+    let end = new Date('2021-04-06T00:00:18.000Z')
 
-    results = groupByDate(entryObjs, start, end)
-    console.log(results)
+    let results = groupByDate(entryObjs, start, end)
+    // console.log(results)
 
+    expect(results).toHaveProperty('3/3/2019')
+    expect(results).toHaveProperty('3/2/2020')
     expect(results).toHaveProperty('3/6/2021')
-    expect(Object.keys(results)).toHaveLength(1);
-    expect(results['3/6/2021'][0].getEntry()).toEqual(entryLogs[3])
+    expect(Object.keys(results)).toHaveLength(3);
+    expect(results['3/3/2019']).toHaveLength(1)
+    expect(results['3/2/2020']).toHaveLength(1)
+    expect(results['3/6/2021']).toHaveLength(3)
   })
 })
 

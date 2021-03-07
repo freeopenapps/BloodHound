@@ -10,32 +10,21 @@ export default function DTPicker(
     const [show, setShow]         = React.useState(false)
     const showPicker = () => { setShow(true); };
 
-    const determineAMPM = (value: number) => {
-      if(value >= 12){
-        return (value - 12).toString().padStart(2,"0")
-      }
-      return value.toString().padStart(2,"0")
-    }
-
     const onChange = (event: any, selectedDate: Date) => {
-      const currentDate = selectedDate || date;
       setShow(false)//Platform.OS === 'ios');
-      //@ts-ignore
-      setDate(currentDate);
+      if(selectedDate){
+        setDate(selectedDate);
+      }
     };
 
     return (
     <View style={styles.container}>
         {mode === 'date' ? 
           <Text style={styles.text}>
-            {date.getMonth()+1}/
-            {date.getDate()}/
-            {date.getFullYear()}
+            {date.toDateString()}
           </Text> : 
           <Text style={styles.text}>
-            {determineAMPM(date.getHours())}:
-            {date.getMinutes().toString().padStart(2,"0")}
-            {date.getHours() > 11 ? 'pm':'am'}
+            {date.toTimeString()}
           </Text>
         }
         <Button onPress={showPicker} title={title} />
@@ -45,7 +34,7 @@ export default function DTPicker(
             testID="dateTimePicker"
             value={date}
             mode={mode}
-            is24Hour={false}
+            is24Hour={true}
             display="default"
             onChange={(event: any, selection: any) => onChange(event, selection)}
           />
@@ -62,7 +51,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text : {
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: 'normal',
     }
   });

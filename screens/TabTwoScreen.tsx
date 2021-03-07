@@ -45,8 +45,8 @@ export default function TabTwoScreen() {
     
   const defaultRange = () => {
     // Set range to start 7 days ago and end today
-    let d = new Date(Date())
-    d.setDate( startDate.getDate() - 7 )
+    let d = new Date()
+    d.setDate( startDate.getUTCDate() - 7 )
     setStartDate(d)
   }
 
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     width: '100%',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#fff',
     marginHorizontal: 1,
   },
   container: {
